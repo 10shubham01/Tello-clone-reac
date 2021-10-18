@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AppsRoundedIcon from "@mui/icons-material/AppsRounded";
 
-import "./Style/navbar.css";
+import "../style/navbar.css";
 import {
   Button,
   Navbar,

@@ -1,15 +1,30 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
-import { Button, Card } from "react-bootstrap";
-import NavBar from "./components/navbar";
 import Boards from "./components/boards";
-class App extends React.Component {
+import Lists from "./components/lists";
+
+import NavBar from "./components/navbar";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import SideNavBar from "./components/sideNavBar";
+import Home from "./components/home";
+import { Check } from "@mui/icons-material";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
-      <div className="App">
+      <Router>
         <NavBar />
-        <Boards />
-      </div>
+        <SideNavBar />
+
+        <Route path="/" exact component={Home}></Route>
+        <Route path="/boards" exact component={Boards} />
+        <Route path="/boards/:id" component={Lists} />
+      </Router>
     );
   }
 }

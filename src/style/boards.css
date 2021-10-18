@@ -1,0 +1,20 @@
+.boards {
+    position: absolute;
+    top: 15vh;
+    right: 0;
+}
+
+h3 {
+    color: #67748B;
+    grid-column: 1/ span 4;
+}
+
+.boards-conatiner {
+
+    padding: 5%;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-row-gap: 5%;
+    grid-column-gap: 2%;
+}

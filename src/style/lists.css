@@ -1,0 +1,52 @@
+.lists {
+    width: 100%;
+    /* background-color: red; */
+}
+
+.lists-container {
+    padding: 2%;
+    position: absolute;
+    top: 10vh;
+    left: 3%;
+    /* width: 100%; */
+    overflow: auto;
+    max-height: 80vh;
+    display: flex;
+    /* background-color: blue; */
+}
+
+.list>input {
+    background: none;
+    border: none;
+}
+
+.list>input:focus {
+    outline: none;
+}
+
+.list {
+    border-radius: 5px;
+    background: #EBECF0;
+    margin: 10px;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #BEC3CD;
+}
+
+/* Handle on hover */
