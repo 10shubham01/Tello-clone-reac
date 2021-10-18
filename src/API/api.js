@@ -24,3 +24,19 @@ export function createABoard(name) {
     )
     .then((resp) => resp.data);
 }
+export function createAList(boardId, name) {
+  return axios
+    .post(
+      `https://api.trello.com/1/boards/${boardId}/lists?name=${name}&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+
+/* ----------------------------------------------------------------------------------------------------------- */
+export function getBackgroundImage(boardId) {
+  return axios
+    .get(
+      `https://api.trello.com/1/boards/${boardId}?key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}

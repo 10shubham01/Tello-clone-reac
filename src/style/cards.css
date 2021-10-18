@@ -1,13 +1,13 @@
 .card {
-    left: 0;
-    right: 0;
-    margin: auto;
-    margin-top: 10px;
+   
+    margin-top: 10px; 
 }
 
-input {
-    margin-top: 5px;
-    margin-bottom: 5px;
+form{
+   
+}
+textarea{
     width: 15rem;
+    background-color: transparent;
     border: none;
 }

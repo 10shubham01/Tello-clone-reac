@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { Modal } from "react-responsive-modal";
+import { Form, Button } from "react-bootstrap";
+import "react-responsive-modal/styles.css";
 
 import * as Trello from "../API/api";
 import BoardCard from "./boardCard";
@@ -11,16 +14,32 @@ class Boards extends Component {
     super(props);
     this.state = {
       Boards: [],
+      openModal: false,
+      boardName: "",
     };
   }
+  onClickButton = (e) => {
+    e.preventDefault();
+    this.setState({ openModal: true });
+  };
+
+  onCloseModal = () => this.setState({ openModal: false });
+
+  handleChange = (event) => {
+    this.setState({ boardName: event.target.value });
+  };
+
   async fetchBoards() {
     const Boards = await Trello.getBoards();
     this.setState({ Boards });
   }
-  async createABoard() {
-    const newBoard = await Trello.createABoard();
+  createABoard = async (event) => {
+    event.preventDefault();
+    const newBoard = await Trello.createABoard(this.state.boardName);
     this.setState({ Boards: [newBoard, ...this.state.Boards] });
-  }
+    this.setState({ boardName: "" });
+    this.onCloseModal();
+  };
   componentDidMount() {
     this.fetchBoards();
   }
@@ -46,7 +65,7 @@ class Boards extends Component {
               <BoardCard boardData={board} key={board.id} />
             </Link>
           ))}
-          <div className="board-add">
+          <div className="board-add" onClick={this.onClickButton}>
             <span className="span1">Create new board</span>
             <span className="span2">5 remaining</span>
             <span className="question">
@@ -54,6 +73,34 @@ class Boards extends Component {
             </span>
           </div>
         </div>
+        {/* --------------------------------------------------- */}
+
+        <Modal
+          classNames="modal"
+          open={this.state.openModal}
+          onClose={this.onCloseModal}
+        >
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <input
+                type="text"
+                placeholder="Board name"
+                value={this.state.boardName}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Label htmlFor="exampleColorInput">Add board title</Form.Label>
+            <Form.Control
+              type="color"
+              id="exampleColorInput"
+              defaultValue="#563d7c"
+              title="Choose your color"
+            />
+            <Button variant="primary" type="submit" onClick={this.createABoard}>
+              Create board
+            </Button>
+          </Form>
+        </Modal>
       </div>
     );
   }

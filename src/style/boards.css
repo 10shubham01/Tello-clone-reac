@@ -10,11 +10,31 @@ h3 {
 }
 
 .boards-conatiner {
-
     padding: 5%;
     width: 90%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-row-gap: 5%;
     grid-column-gap: 2%;
+}
+
+.react-responsive-modal-modal {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+    height: 300px;
+    display: inline-block;
+    background: transparent;
+    position: relative;
+    box-shadow: 0 12px 15px 0 rgb(0 0 0 / 25%);
+    overflow-y: auto;
+}
+
+.react-responsive-modal-modal>form {
+    margin-top: 10%;
+    
+}
+
+.react-responsive-modal-modal>form{
+
 }

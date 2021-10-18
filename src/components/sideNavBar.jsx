@@ -36,7 +36,7 @@ class SideNavBar extends Component {
             <Link to="/templates">
               {" "}
               <li>
-                <i class="fas fa-columns"></i> &nbsp;Templates
+                <i className="fas fa-columns"></i> &nbsp;Templates
               </li>
             </Link>
             <Link to="/">

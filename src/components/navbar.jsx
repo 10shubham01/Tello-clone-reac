@@ -20,11 +20,13 @@ class NavBar extends React.Component {
           collapseOnSelect
           expand="lg"
           style={{
-            backgroundColor: "#026AA7",
+            backgroundColor: "rgba(0, 0, 0, 0.45)",
+            // filter: "blur(10px)",
             justifyContent: "space-around",
             position: "fixed",
             width: "100%",
             zIndex: "2",
+            height: "7vh",
           }}
           variant="dark"
           className="navbar"
@@ -81,12 +83,26 @@ class NavBar extends React.Component {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
+              <NavDropdown title="Templates" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
               <Button
                 type="button"
                 style={{
                   backgroundColor: "#02517F",
                   outline: "none",
                   border: "none",
+                  marginLeft: "20px",
                 }}
                 size="sm"
               >

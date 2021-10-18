@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import "../style/cards.css";
+import { Form, Button } from "react-bootstrap";
+
 class Card extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       items: [],
+      active: false,
     };
   }
+  hanldeFocus = () => {
+    this.setState({ active: true });
+  };
 
   componentDidMount() {
     fetch(
@@ -40,7 +46,26 @@ class Card extends Component {
             </div>
           </div>
         ))}
-        <input type="text" value="Add a Card" />
+        <form action="">
+          {" "}
+          <textarea
+            type="text"
+            value=""
+            placeholder="&#x2b; Add a Card"
+            onFocus={this.hanldeFocus}
+            style={{
+              resize: "none",
+            }}
+            className={{}}
+          />
+          <Button
+            style={{ display: this.state.active ? "block" : "none" }}
+            variant="primary"
+            type="submit"
+          >
+            Add Card
+          </Button>
+        </form>
       </div>
     );
   }
