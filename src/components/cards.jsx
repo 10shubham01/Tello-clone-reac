@@ -1,71 +1,107 @@
 import React, { Component } from "react";
 import "../style/cards.css";
 import { Form, Button } from "react-bootstrap";
+import ModalCard from "./modalCard";
+import { Link } from "react-router-dom";
+
+import * as Trello from "../API/api";
 
 class Card extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: [],
+      cards: [],
       active: false,
+      CardName: "",
+      openModal: false,
+      oneCardData: "",
     };
   }
-  hanldeFocus = () => {
-    this.setState({ active: true });
+  onClickButton = (e) => {
+    e.preventDefault();
+
+    this.setState({ oneCardData: e.target.getAttribute("data-id") });
+    this.setState({ openModal: true });
+    console.log(this.state.oneCardData);
   };
 
+  onCloseModal = () => this.setState({ openModal: false });
+
+  handleFocus = () => {
+    this.setState({ active: true });
+  };
+  handleChange = (event) => {
+    this.setState({ CardName: event.target.value });
+  };
+  createACard = async (event) => {
+    event.preventDefault();
+    const newCard = await Trello.createACard(
+      this.state.CardName,
+      this.props.listId
+    );
+    this.setState({ cards: [newCard, ...this.state.cards] });
+    this.setState({ CardName: "" });
+  };
+  async getCards() {
+    const cards = await Trello.getCards(this.props.boardId);
+
+    this.setState({
+      cards: cards.filter((e) => e.idList === this.props.listId),
+    });
+  }
+
   componentDidMount() {
-    fetch(
-      `https://api.trello.com/1/boards/${this.props.boardId}/cards?key=4298ca93f060af6da934044bfa1ab2b2&token=530264e811c33c4aa41e9471743647bf78b1d4b3e2239ab9fa1c0c11fa7c26c1`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          items: json.filter((e) => e.idList === this.props.listId),
-          DataisLoaded: true,
-        });
-      });
+    this.getCards();
   }
   render() {
-    const { DataisLoaded, items } = this.state;
-    if (!DataisLoaded)
-      return (
-        <div>
-          <h1>Data is loading.... </h1>{" "}
-        </div>
-      );
+    const { cards } = this.state;
 
     return (
       <div>
-        {items.map((item) => (
-          <div className="card" style={{ width: "15rem" }}>
-            <div className="card-body">
-              <h6 className="card-title">{item.name}</h6>
+        {cards.map((card) => (
+          <div
+            className="card"
+            style={{ width: "15rem" }}
+            key={card.id}
+            onClick={this.onClickButton}
+          >
+            <div className="card-body" data-id={card.id}>
+              <h6 className="card-title">{card.name}</h6>
               <p className="card-text"></p>
             </div>
           </div>
         ))}
+
+        <ModalCard
+          cardId={this.state.oneCardData}
+          state={this.state.openModal}
+          onCloseButton={this.onCloseModal}
+        />
+
         <form action="">
           {" "}
           <textarea
             type="text"
-            value=""
+            value={this.state.CardName}
             placeholder="&#x2b; Add a Card"
-            onFocus={this.hanldeFocus}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
             style={{
               resize: "none",
             }}
-            className={{}}
+            className={this.state.active ? "onFocus" : ""}
           />
           <Button
             style={{ display: this.state.active ? "block" : "none" }}
             variant="primary"
             type="submit"
+            onClick={this.createACard}
           >
             Add Card
           </Button>
         </form>
+        {/* ------------------------------------------------------------------------------------------- */}
       </div>
     );
   }

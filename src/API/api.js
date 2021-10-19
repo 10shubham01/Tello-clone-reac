@@ -31,6 +31,20 @@ export function createAList(boardId, name) {
     )
     .then((resp) => resp.data);
 }
+export function getCards(boardId) {
+  return axios
+    .get(
+      `https://api.trello.com/1/boards/${boardId}/cards?&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+export function createACard(name, listId) {
+  return axios
+    .post(
+      `https://api.trello.com/1/cards?name=${name}&idList=${listId}&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
 
 /* ----------------------------------------------------------------------------------------------------------- */
 export function getBackgroundImage(boardId) {

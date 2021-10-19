@@ -7,7 +7,7 @@ import "react-responsive-modal/styles.css";
 import * as Trello from "../API/api";
 import BoardCard from "./boardCard";
 import "../style/boards.css";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Boards extends Component {
   constructor(props) {
