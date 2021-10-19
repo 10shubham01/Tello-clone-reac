@@ -3,19 +3,29 @@ import { withRouter } from "react-router-dom";
 import "../style/lists.css";
 import * as Trello from "../API/api";
 import Cards from "./cards";
+import { MoreHorizontal, X } from "react-feather";
+import CreateInput from "./createInput";
+import Popover from "@mui/material/Popover";
+import { Form, Button } from "react-bootstrap";
+import { AlignLeft, Trash } from "react-feather";
+
 class Lists extends Component {
   constructor(props) {
     super(props);
     this.state = {
       lists: [],
       listName: "",
+      active: false,
       backgroundImage: "",
+      setAnchorEl: null,
     };
   }
   handleChange = (event) => {
     this.setState({ listName: event.target.value });
   };
-
+  handleFocus = () => {
+    this.setState({ active: true });
+  };
   async fetchLists() {
     const lists = await Trello.getOneBoards(this.props.match.params.id);
     this.setState({ lists: lists });
@@ -35,10 +45,16 @@ class Lists extends Component {
       this.state.listName
     );
     this.setState({ lists: [newList, ...this.state.lists] });
+    this.setState({ active: true });
+
     this.setState({ listName: "" });
   };
-  handleFocus = (event) => event.target.select();
-
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
   componentDidMount() {
     this.fetchLists();
     this.getBackgroundImage();
@@ -55,18 +71,46 @@ class Lists extends Component {
         <div className="lists-container">
           {lists.map((list) => (
             <div className="list">
-              <h6>{list.name}</h6>
+              <h6>
+                {list.name}{" "}
+                <MoreHorizontal
+                  style={{
+                    position: "absolute",
+                    right: "2%",
+                    top: "2%",
+                    cursor: "pointer",
+                  }}
+                  onClick={this.handleClick}
+                />
+              </h6>
               <Cards boardId={this.props.match.params.id} listId={list.id} />
             </div>
           ))}
-          <form action="">
-            <input
-              type="text"
-              value={this.state.listName}
-              onChange={this.handleChange}
-            />
-            <button onClick={this.createAList}>CreateList</button>
-          </form>
+          <CreateInput
+            value={this.state.listName}
+            onChange={this.handleChange}
+            onClickButton={this.createAList}
+            state={this.state.active}
+            onMouseDown={() => {
+              this.setState({ active: false });
+            }}
+            onFocus={this.handleFocus}
+          />
+          <Popover
+            open={Boolean(this.state.anchorEl)}
+            anchorEl={this.state.anchorEl}
+            onClose={this.handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            className="popover"
+          >
+            <ul>
+              <li>Delete</li>
+              <li>Archive</li>
+            </ul>
+          </Popover>
         </div>
       </div>
     );

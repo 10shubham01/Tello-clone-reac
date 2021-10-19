@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "../style/cards.css";
 import { Form, Button } from "react-bootstrap";
-import ModalCard from "./modalCard";
+import { AlignLeft, Trash, X } from "react-feather";
+import CreateInput from "./createInput";
 import { Link } from "react-router-dom";
 
 import * as Trello from "../API/api";
@@ -14,19 +15,8 @@ class Card extends Component {
       cards: [],
       active: false,
       CardName: "",
-      openModal: false,
-      oneCardData: "",
     };
   }
-  onClickButton = (e) => {
-    e.preventDefault();
-
-    this.setState({ oneCardData: e.target.getAttribute("data-id") });
-    this.setState({ openModal: true });
-    console.log(this.state.oneCardData);
-  };
-
-  onCloseModal = () => this.setState({ openModal: false });
 
   handleFocus = () => {
     this.setState({ active: true });
@@ -41,6 +31,8 @@ class Card extends Component {
       this.props.listId
     );
     this.setState({ cards: [newCard, ...this.state.cards] });
+    this.setState({ active: true });
+
     this.setState({ CardName: "" });
   };
   async getCards() {
@@ -50,7 +42,11 @@ class Card extends Component {
       cards: cards.filter((e) => e.idList === this.props.listId),
     });
   }
-
+  deleteCard = async (cardId) => {
+    // event.preventDefault();
+    await Trello.deleteCard(cardId);
+    this.setState({ cards: this.state.cards.filter((f) => f.id !== cardId) });
+  };
   componentDidMount() {
     this.getCards();
   }
@@ -60,47 +56,62 @@ class Card extends Component {
     return (
       <div>
         {cards.map((card) => (
-          <div
-            className="card"
-            style={{ width: "15rem" }}
-            key={card.id}
-            onClick={this.onClickButton}
-          >
-            <div className="card-body" data-id={card.id}>
-              <h6 className="card-title">{card.name}</h6>
-              <p className="card-text"></p>
-            </div>
+          <div className="card" style={{ width: "16rem" }} key={card.id}>
+            <Link to={`/boards/:id/popup/${card.id}`}>
+              <div className="card-body" data-id={card.id}>
+                <h6 className="card-title">{card.name} </h6>
+              </div>
+            </Link>
+
+            <Trash
+              size={18}
+              style={{ margin: "5px", cursor: "pointer" }}
+              onClick={() => this.deleteCard(card.id)}
+            />
           </div>
         ))}
 
-        <ModalCard
-          cardId={this.state.oneCardData}
-          state={this.state.openModal}
-          onCloseButton={this.onCloseModal}
-        />
-
-        <form action="">
+        {/* <form action="">
           {" "}
           <textarea
-            type="text"
-            value={this.state.CardName}
             placeholder="&#x2b; Add a Card"
+            style={{ resize: "none" }}
             onFocus={this.handleFocus}
+            value={this.state.CardName}
             onChange={this.handleChange}
-            style={{
-              resize: "none",
-            }}
-            className={this.state.active ? "onFocus" : ""}
-          />
-          <Button
-            style={{ display: this.state.active ? "block" : "none" }}
-            variant="primary"
-            type="submit"
-            onClick={this.createACard}
-          >
-            Add Card
-          </Button>
-        </form>
+          ></textarea>
+          <div className="buttons">
+            <Button
+              style={{ display: this.state.active ? "block" : "none" }}
+              variant="primary"
+              type="submit"
+              onClick={this.createACard}
+            >
+              AddCard
+            </Button>
+            <Button
+              style={{ display: this.state.active ? "block" : "none" }}
+              variant=""
+              type="submit"
+              onMouseDown={() => {
+                this.setState({ active: false });
+              }}
+            >
+              <X color="#172B4D" />
+            </Button>
+          </div>
+        </form> */}
+        <CreateInput
+          placeholder="&#x2b; Add a Card"
+          onFocus={this.handleFocus}
+          state={this.state.active}
+          value={this.state.CardName}
+          onChange={this.handleChange}
+          onClickButton={this.createACard}
+          onMouseDown={() => {
+            this.setState({ active: false });
+          }}
+        />
         {/* ------------------------------------------------------------------------------------------- */}
       </div>
     );

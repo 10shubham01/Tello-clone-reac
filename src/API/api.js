@@ -45,7 +45,21 @@ export function createACard(name, listId) {
     )
     .then((resp) => resp.data);
 }
+export function getOneCard(cardId) {
+  return axios
+    .get(
+      `https://api.trello.com/1/cards/${cardId}?&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
 
+export function deleteCard(cardId) {
+  return axios
+    .delete(
+      `https://api.trello.com/1/cards/${cardId}?&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
 /* ----------------------------------------------------------------------------------------------------------- */
 export function getBackgroundImage(boardId) {
   return axios
