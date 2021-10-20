@@ -119,8 +119,3 @@
     height: 20px;
 }
 
-.checkitems {
-    background-color: orange;
-    display: flex;
-    flex-direction: row;
-}
