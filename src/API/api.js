@@ -31,6 +31,13 @@ export function createAList(boardId, name) {
     )
     .then((resp) => resp.data);
 }
+export function archiveList(listId) {
+  return axios
+    .put(
+      `https://api.trello.com/1/lists/${listId}/closed?key=${API_KEY}&token=${API_TOKEN}&value=true`
+    )
+    .then((resp) => resp.data);
+}
 export function getCards(boardId) {
   return axios
     .get(
@@ -92,6 +99,13 @@ export function createCheckItems(name, checklistId) {
   return axios
     .post(
       `https://api.trello.com/1/checklists/${checklistId}/checkItems?name=${name}&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+export function deleteCheckItems(checklistId, checkitemId) {
+  return axios
+    .delete(
+      `https://api.trello.com/1/checklists/${checklistId}/checkItems/${checkitemId}?&key=${API_KEY}&token=${API_TOKEN}`
     )
     .then((resp) => resp.data);
 }

@@ -46,6 +46,15 @@ input {
     box-shadow: 0 1px 0 #091e4240;
 }
 
+.popicons {
+    height: 50px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #172B4D;
+}
 
 ::-webkit-scrollbar {
     height: 10px;

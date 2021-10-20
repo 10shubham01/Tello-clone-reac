@@ -29,6 +29,12 @@ class CheckItems extends Component {
     this.setState({ checkItems: [newCheckitem, ...this.state.checkItems] });
     this.setState({ newCheckitem: "" });
   };
+  deleteCheckItems = async (itemid) => {
+    await Trello.deleteCheckItems(this.props.checklistId, itemid);
+    this.setState({
+      checkItems: this.state.checkItems.filter((f) => f.id !== itemid),
+    });
+  };
 
   handleFocus = () => {
     this.setState({ active: true });
@@ -58,7 +64,7 @@ class CheckItems extends Component {
             <Trash
               size={18}
               style={{ margin: "5px", cursor: "pointer" }}
-              // onClick={() => this.props.delete(item.id)}
+              onClick={() => this.deleteCheckItems(item.id)}
             />
           </div>
         ))}{" "}

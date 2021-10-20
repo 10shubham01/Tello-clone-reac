@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import "../style/lists.css";
 import * as Trello from "../API/api";
 import Cards from "./cards";
-import { MoreHorizontal, X } from "react-feather";
+import { MoreHorizontal, Archive, Trash } from "react-feather";
 import CreateInput from "./createInput";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
@@ -44,15 +44,14 @@ class Lists extends Component {
     );
     this.setState({ lists: [newList, ...this.state.lists] });
     this.setState({ active: true });
-
     this.setState({ listName: "" });
   };
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  archiveList = async (listId) => {
+    console.log("clicked");
+    await Trello.archiveList(listId);
+    this.setState({ lists: this.state.lists.filter((f) => f.id !== listId) });
   };
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+
   componentDidMount() {
     this.fetchLists();
     this.getBackgroundImage();
@@ -71,14 +70,14 @@ class Lists extends Component {
             <div className="list">
               <h6>
                 {list.name}{" "}
-                <MoreHorizontal
+                <Archive
                   style={{
                     position: "absolute",
                     right: "2%",
-                    top: "2%",
+                    top: "1%",
                     cursor: "pointer",
                   }}
-                  onClick={this.handleClick}
+                  onClick={() => this.archiveList(list.id)}
                 />
               </h6>
               <Cards boardId={this.props.match.params.id} listId={list.id} />
@@ -96,17 +95,6 @@ class Lists extends Component {
             onFocus={this.handleFocus}
             buttonText="Add List"
           />
-          <Popover
-            open={Boolean(this.state.anchorEl)}
-            anchorEl={this.state.anchorEl}
-            onClose={this.handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-          >
-            <Typography sx={{ p: 2 }}>Delete</Typography>
-          </Popover>
         </div>
       </div>
     );
