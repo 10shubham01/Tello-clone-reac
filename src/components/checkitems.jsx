@@ -3,6 +3,8 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import * as Trello from "../API/api";
 import CreateInput from "./createInput";
 import "../style/checkitems.css";
+import { Trash } from "react-feather";
+
 class CheckItems extends Component {
   constructor(props) {
     super(props);
@@ -42,16 +44,23 @@ class CheckItems extends Component {
     return (
       <div className="checkitems">
         {this.state.checkItems.map((item) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={item.state === "complete" ? true : false}
-                // onChange={}
-                name="gilad"
-              />
-            }
-            label={item.name}
-          />
+          <div className="heading">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={item.state === "complete" ? true : false}
+                  // onChange={}
+                  name="gilad"
+                />
+              }
+              label={item.name}
+            />
+            <Trash
+              size={18}
+              style={{ margin: "5px", cursor: "pointer" }}
+              // onClick={() => this.props.delete(item.id)}
+            />
+          </div>
         ))}{" "}
         <CreateInput
           placeholder="Add checkitem"

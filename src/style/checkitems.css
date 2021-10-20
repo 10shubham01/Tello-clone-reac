@@ -1,7 +1,16 @@
 .checkitems {
-    background-color: blue;
+    /* background-color: blue; */
     display: flex;
     flex-direction: column;
     padding-left: 5%;
     padding-bottom: 2%;
+}
+
+.checkitems>.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #eee;
+    margin: 10px;
+    height: 30px;
 }
