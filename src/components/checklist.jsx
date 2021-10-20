@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import CheckItems from "./checkitems";
-import { AlignLeft, Trash, X } from "react-feather";
-
-import * as Trello from "../API/api";
+import { Trash } from "react-feather";
 
 class CheckList extends Component {
   constructor(props) {
@@ -23,7 +21,7 @@ class CheckList extends Component {
                 onClick={() => this.props.delete(list.id)}
               />
             </div>
-            <CheckItems checklistId={list.id} />
+            <CheckItems checklistId={list.id} cardId={list.idCard} />
           </div>
         ))}
       </div>

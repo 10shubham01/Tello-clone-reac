@@ -70,7 +70,7 @@ export function deleteCard(cardId) {
 export function getChecklist(cardId) {
   return axios
     .get(
-      `https://api.trello.com/1/cards/${cardId}/checklists??&key=${API_KEY}&token=${API_TOKEN}`
+      `https://api.trello.com/1/cards/${cardId}/checklists?&key=${API_KEY}&token=${API_TOKEN}`
     )
     .then((resp) => resp.data);
 }
@@ -106,6 +106,13 @@ export function deleteCheckItems(checklistId, checkitemId) {
   return axios
     .delete(
       `https://api.trello.com/1/checklists/${checklistId}/checkItems/${checkitemId}?&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+export function checkUncheck(cardId, checkitemId) {
+  return axios
+    .put(
+      `https://api.trello.com/1/cards/${cardId}/checkItem/${checkitemId}?state=incomplete?&key=${API_KEY}&token=${API_TOKEN}`
     )
     .then((resp) => resp.data);
 }

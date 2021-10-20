@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import * as Trello from "../API/api";
-import { Button } from "react-bootstrap";
-import { AlignLeft, Layout, X, CheckSquare, Trash } from "react-feather";
+
+import { AlignLeft, Layout, X, CheckSquare } from "react-feather";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 
 import CheckList from "./checklist";
 
@@ -28,11 +27,11 @@ class PopUp extends Component {
     this.setState({ anchorEl: null });
   };
   getOneCard = async () => {
-    // event.preventDefault();
     const card = await Trello.getOneCard(this.props.match.params.id);
     this.setState({ card });
+    this.getChecklist();
   };
-  getChecklist = async (event) => {
+  getChecklist = async () => {
     const checklists = await Trello.getChecklist(this.state.card.id);
     this.setState({ checklists });
   };
@@ -46,7 +45,6 @@ class PopUp extends Component {
     this.setState({ newChecklist: "" });
   };
   deleteChecklist = async (checklistID) => {
-    // event.preventDefault();
     await Trello.deleteChecklist(checklistID);
     this.setState({
       cards: this.state.checklists.filter((f) => f.id !== checklistID),
@@ -64,7 +62,6 @@ class PopUp extends Component {
     this.getOneCard();
   }
   render() {
-    this.getChecklist();
     const { card } = this.state;
     return (
       <div className="popup-window">

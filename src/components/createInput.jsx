@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
-import { AlignLeft, Trash, X } from "react-feather";
+import { Button } from "react-bootstrap";
+import { X } from "react-feather";
 import "../style/createInput.css";
 
 class CreateInput extends Component {

@@ -35,6 +35,10 @@ class CheckItems extends Component {
       checkItems: this.state.checkItems.filter((f) => f.id !== itemid),
     });
   };
+  checkUncheck = async (itemId) => {
+    const checked = Trello.checkUncheck(this.props.cardId, itemId);
+    console.log(checked);
+  };
 
   handleFocus = () => {
     this.setState({ active: true });
@@ -55,8 +59,7 @@ class CheckItems extends Component {
               control={
                 <Checkbox
                   checked={item.state === "complete" ? true : false}
-                  // onChange={}
-                  name="gilad"
+                  onChange={() => this.checkUncheck(item.id)}
                 />
               }
               label={item.name}

@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import "../style/cards.css";
-import { Form, Button } from "react-bootstrap";
-import { AlignLeft, Trash, X } from "react-feather";
+import { Trash } from "react-feather";
 import CreateInput from "./createInput";
 import { Link } from "react-router-dom";
-
 import * as Trello from "../API/api";
-
 class Card extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +34,6 @@ class Card extends Component {
   };
   async getCards() {
     const cards = await Trello.getCards(this.props.boardId);
-
     this.setState({
       cards: cards.filter((e) => e.idList === this.props.listId),
     });

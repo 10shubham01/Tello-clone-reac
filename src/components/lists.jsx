@@ -3,10 +3,8 @@ import { withRouter } from "react-router-dom";
 import "../style/lists.css";
 import * as Trello from "../API/api";
 import Cards from "./cards";
-import { MoreHorizontal, Archive, Trash } from "react-feather";
+import { Archive } from "react-feather";
 import CreateInput from "./createInput";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 
 class Lists extends Component {
   constructor(props) {
@@ -18,12 +16,7 @@ class Lists extends Component {
       backgroundImage: "",
     };
   }
-  handleChange = (event) => {
-    this.setState({ listName: event.target.value });
-  };
-  handleFocus = () => {
-    this.setState({ active: true });
-  };
+  /* -----------------------------------------------------API CALLS------------------------------------------ */
   async fetchLists() {
     const lists = await Trello.getOneBoards(this.props.match.params.id);
     this.setState({ lists: lists });
@@ -32,7 +25,6 @@ class Lists extends Component {
     const backgroundImage = await Trello.getBackgroundImage(
       this.props.match.params.id
     );
-
     this.setState({ backgroundImage: backgroundImage.prefs.backgroundImage });
   }
 
@@ -50,6 +42,13 @@ class Lists extends Component {
     console.log("clicked");
     await Trello.archiveList(listId);
     this.setState({ lists: this.state.lists.filter((f) => f.id !== listId) });
+  };
+  /* ------------------------------------------------------------------------------handleEvents---------------------------------------------------------------------- */
+  handleChange = (event) => {
+    this.setState({ listName: event.target.value });
+  };
+  handleFocus = () => {
+    this.setState({ active: true });
   };
 
   componentDidMount() {
