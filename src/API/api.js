@@ -109,10 +109,10 @@ export function deleteCheckItems(checklistId, checkitemId) {
     )
     .then((resp) => resp.data);
 }
-export function checkUncheck(cardId, checkitemId) {
+export function checkUncheck(cardId, checkitemId, state) {
   return axios
     .put(
-      `https://api.trello.com/1/cards/${cardId}/checkItem/${checkitemId}?state=incomplete?&key=${API_KEY}&token=${API_TOKEN}`
+      `https://api.trello.com/1/cards/${cardId}/checkItem/${checkitemId}?state=${state}&key=${API_KEY}&token=${API_TOKEN}`
     )
     .then((resp) => resp.data);
 }

@@ -12,6 +12,7 @@ class CheckItems extends Component {
       checkItems: [],
       active: false,
       newCheckitem: "",
+      state: "incomplete",
     };
   }
 
@@ -26,7 +27,7 @@ class CheckItems extends Component {
       this.state.newCheckitem,
       this.props.checklistId
     );
-    this.setState({ checkItems: [newCheckitem, ...this.state.checkItems] });
+    this.setState({ checkItems: [...this.state.checkItems, newCheckitem] });
     this.setState({ newCheckitem: "" });
   };
   deleteCheckItems = async (itemid) => {
@@ -36,10 +37,21 @@ class CheckItems extends Component {
     });
   };
   checkUncheck = async (itemId) => {
-    const checked = Trello.checkUncheck(this.props.cardId, itemId);
-    console.log(checked);
+    const checked = Trello.checkUncheck(
+      this.props.cardId,
+      itemId,
+      this.state.state
+    );
   };
-
+  handleCheck = (itemId, e) => {
+    console.log(e.target.checked);
+    if (e.target.checked) {
+      this.setState({ state: "complete" });
+    } else {
+      this.setState({ state: "incomplete" });
+    }
+    this.checkUncheck(itemId);
+  };
   handleFocus = () => {
     this.setState({ active: true });
   };
@@ -59,7 +71,7 @@ class CheckItems extends Component {
               control={
                 <Checkbox
                   checked={item.state === "complete" ? true : false}
-                  onChange={() => this.checkUncheck(item.id)}
+                  onChange={(e) => this.handleCheck(item.id, e)}
                 />
               }
               label={item.name}

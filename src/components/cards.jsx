@@ -27,7 +27,7 @@ class Card extends Component {
       this.state.CardName,
       this.props.listId
     );
-    this.setState({ cards: [newCard, ...this.state.cards] });
+    this.setState({ cards: [...this.state.cards, newCard] });
     this.setState({ active: true });
 
     this.setState({ CardName: "" });

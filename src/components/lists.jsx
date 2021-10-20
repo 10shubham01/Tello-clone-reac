@@ -34,7 +34,7 @@ class Lists extends Component {
       this.props.match.params.id,
       this.state.listName
     );
-    this.setState({ lists: [newList, ...this.state.lists] });
+    this.setState({ lists: [...this.state.lists, newList] });
     this.setState({ active: true });
     this.setState({ listName: "" });
   };

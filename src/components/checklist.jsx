@@ -14,7 +14,7 @@ class CheckList extends Component {
         {this.props.data.map((list) => (
           <div className="checklist">
             <div className="heading">
-              {list.name}{" "}
+              {list.name}
               <Trash
                 size={18}
                 style={{ margin: "5px", cursor: "pointer" }}

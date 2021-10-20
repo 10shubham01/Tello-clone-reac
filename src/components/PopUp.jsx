@@ -41,7 +41,7 @@ class PopUp extends Component {
       this.state.newChecklist,
       this.state.card.id
     );
-    this.setState({ checklists: [newChecklist, ...this.state.checklists] });
+    this.setState({ checklists: [...this.state.checklists, newChecklist] });
     this.setState({ newChecklist: "" });
   };
   deleteChecklist = async (checklistID) => {
