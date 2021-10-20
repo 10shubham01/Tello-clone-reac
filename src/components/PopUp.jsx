@@ -3,30 +3,68 @@ import { withRouter } from "react-router-dom";
 import * as Trello from "../API/api";
 import { Button } from "react-bootstrap";
 import { AlignLeft, Layout, X, CheckSquare, Trash } from "react-feather";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+
+import CheckList from "./checklist";
 
 import "../style/popup.css";
+import CreateInput from "./createInput";
 class PopUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       card: {},
       active: false,
+      checklists: [],
+      newChecklist: "",
+      anchorEl: null,
     };
   }
-
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
   getOneCard = async () => {
     // event.preventDefault();
     const card = await Trello.getOneCard(this.props.match.params.id);
     this.setState({ card });
   };
+  getChecklist = async (event) => {
+    const checklists = await Trello.getChecklist(this.state.card.id);
+    this.setState({ checklists });
+  };
+  createAChecklist = async (event) => {
+    event.preventDefault();
+    const newChecklist = await Trello.createAChecklist(
+      this.state.newChecklist,
+      this.state.card.id
+    );
+    this.setState({ checklists: [newChecklist, ...this.state.checklists] });
+    this.setState({ newChecklist: "" });
+  };
+  deleteChecklist = async (checklistID) => {
+    // event.preventDefault();
+    await Trello.deleteChecklist(checklistID);
+    this.setState({
+      cards: this.state.checklists.filter((f) => f.id !== checklistID),
+    });
+  };
 
   handleFocus = () => {
     this.setState({ active: true });
+  };
+
+  handleChange = (event) => {
+    this.setState({ newChecklist: event.target.value });
   };
   componentDidMount() {
     this.getOneCard();
   }
   render() {
+    this.getChecklist();
     const { card } = this.state;
     return (
       <div className="popup-window">
@@ -46,41 +84,46 @@ class PopUp extends Component {
                 {" "}
                 <AlignLeft color="#172B4D" size={20} /> Description
               </h3>
-              <textarea
-                placeholder="Add a more detailed description..."
-                value={card.desc}
-                style={{ resize: "none" }}
-                onFocus={this.handleFocus}
-              ></textarea>
-              <div className="buttons">
-                <Button
-                  style={{ display: this.state.active ? "block" : "none" }}
-                  variant="primary"
-                  type="submit"
-                >
-                  Save
-                </Button>
-                <Button
-                  style={{ display: this.state.active ? "block" : "none" }}
-                  variant=""
-                  type="submit"
-                  onMouseDown={() => {
-                    this.setState({ active: false });
-                  }}
-                >
-                  <X color="#172B4D" />
-                </Button>
-              </div>
+              <p>{card.desc}</p>
             </div>
             {/* ---------------------------------------------------------------------- */}
             <div className="rightmenu">
               <ul>
-                <li>
+                <li onMouseUp={this.handleClick}>
                   {" "}
                   <CheckSquare size={20} />
                   &nbsp; checklist
                 </li>
               </ul>
+            </div>
+            <Popover
+              open={Boolean(this.state.anchorEl)}
+              anchorEl={this.state.anchorEl}
+              onClose={this.handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+            >
+              <CreateInput
+                placeholder="&#x2b; Add List"
+                onFocus={this.handleFocus}
+                state={this.state.active}
+                value={this.state.newChecklist}
+                onChange={this.handleChange}
+                onClickButton={this.createAChecklist}
+                onMouseDown={() => {
+                  this.setState({ active: false });
+                }}
+                buttonText="Add Checklist"
+              />
+            </Popover>
+            {/* ---------------------------------------------------------------------- */}
+            <div className="checklist-container">
+              <CheckList
+                data={this.state.checklists}
+                delete={this.deleteChecklist}
+              />
             </div>
           </div>
         </div>

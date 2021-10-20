@@ -6,8 +6,7 @@ import Cards from "./cards";
 import { MoreHorizontal, X } from "react-feather";
 import CreateInput from "./createInput";
 import Popover from "@mui/material/Popover";
-import { Form, Button } from "react-bootstrap";
-import { AlignLeft, Trash } from "react-feather";
+import Typography from "@mui/material/Typography";
 
 class Lists extends Component {
   constructor(props) {
@@ -17,7 +16,6 @@ class Lists extends Component {
       listName: "",
       active: false,
       backgroundImage: "",
-      setAnchorEl: null,
     };
   }
   handleChange = (event) => {
@@ -87,6 +85,7 @@ class Lists extends Component {
             </div>
           ))}
           <CreateInput
+            placeholder="Add list"
             value={this.state.listName}
             onChange={this.handleChange}
             onClickButton={this.createAList}
@@ -95,6 +94,7 @@ class Lists extends Component {
               this.setState({ active: false });
             }}
             onFocus={this.handleFocus}
+            buttonText="Add List"
           />
           <Popover
             open={Boolean(this.state.anchorEl)}
@@ -104,12 +104,8 @@ class Lists extends Component {
               vertical: "bottom",
               horizontal: "left",
             }}
-            className="popover"
           >
-            <ul>
-              <li>Delete</li>
-              <li>Archive</li>
-            </ul>
+            <Typography sx={{ p: 2 }}>Delete</Typography>
           </Popover>
         </div>
       </div>

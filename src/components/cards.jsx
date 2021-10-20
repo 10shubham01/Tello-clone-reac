@@ -71,36 +71,6 @@ class Card extends Component {
           </div>
         ))}
 
-        {/* <form action="">
-          {" "}
-          <textarea
-            placeholder="&#x2b; Add a Card"
-            style={{ resize: "none" }}
-            onFocus={this.handleFocus}
-            value={this.state.CardName}
-            onChange={this.handleChange}
-          ></textarea>
-          <div className="buttons">
-            <Button
-              style={{ display: this.state.active ? "block" : "none" }}
-              variant="primary"
-              type="submit"
-              onClick={this.createACard}
-            >
-              AddCard
-            </Button>
-            <Button
-              style={{ display: this.state.active ? "block" : "none" }}
-              variant=""
-              type="submit"
-              onMouseDown={() => {
-                this.setState({ active: false });
-              }}
-            >
-              <X color="#172B4D" />
-            </Button>
-          </div>
-        </form> */}
         <CreateInput
           placeholder="&#x2b; Add a Card"
           onFocus={this.handleFocus}
@@ -111,6 +81,7 @@ class Card extends Component {
           onMouseDown={() => {
             this.setState({ active: false });
           }}
+          buttonText="Add Card"
         />
         {/* ------------------------------------------------------------------------------------------- */}
       </div>

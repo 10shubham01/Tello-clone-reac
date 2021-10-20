@@ -11,25 +11,3 @@
     background-color: #ebecf0;
 }
 
-textarea {
-    width: 16rem;
-    background-color: #EBECF0;
-    border: none;
-    border-radius: 5px;
-}
-
-.buttons {
-    display: grid;
-    grid-gap: 10%;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-}
-
-textarea:hover {
-    background-color: #d8dadd;
-}
-
-textarea:focus {
-    outline-color: darkblue;
-    height: 90px;
-}

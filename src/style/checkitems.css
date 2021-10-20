@@ -1,0 +1,7 @@
+.checkitems {
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-bottom: 2%;
+}

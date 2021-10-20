@@ -11,14 +11,12 @@
     overflow-y: auto;
 }
 
-.container {}
-
 .popup {
     position: relative;
     right: 0;
     left: 0;
     margin: auto;
-    height: 100vh;
+    height: auto;
     width: 60%;
     background-color: #F4F5F7;
     border-radius: 5px;
@@ -105,4 +103,24 @@
 .rightmenu>ul>li:hover {
     background-color: #eee;
     border-radius: 5px;
+}
+
+.checklist-container {
+    grid-area: 3 /span 4;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+}
+
+.checklist>.heading {
+    /* background-color: blue; */
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+}
+
+.checkitems {
+    background-color: orange;
+    display: flex;
+    flex-direction: row;
 }

@@ -26,7 +26,7 @@ class CreateInput extends Component {
             type="submit"
             onClick={this.props.onClickButton}
           >
-            AddCard
+            {this.props.buttonText}
           </Button>
           <Button
             style={{ display: this.props.state ? "block" : "none" }}

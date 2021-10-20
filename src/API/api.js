@@ -60,6 +60,41 @@ export function deleteCard(cardId) {
     )
     .then((resp) => resp.data);
 }
+export function getChecklist(cardId) {
+  return axios
+    .get(
+      `https://api.trello.com/1/cards/${cardId}/checklists??&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+export function createAChecklist(name, cardId) {
+  return axios
+    .post(
+      `https://api.trello.com/1/checklists?name=${name}&idCard=${cardId}&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+export function deleteChecklist(checklistId) {
+  return axios
+    .delete(
+      `https://api.trello.com/1/checklists/${checklistId}?&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+export function getCheckItems(checkListId) {
+  return axios
+    .get(
+      `https://api.trello.com/1/checklists/${checkListId}/checkItems?&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
+export function createCheckItems(name, checklistId) {
+  return axios
+    .post(
+      `https://api.trello.com/1/checklists/${checklistId}/checkItems?name=${name}&key=${API_KEY}&token=${API_TOKEN}`
+    )
+    .then((resp) => resp.data);
+}
 /* ----------------------------------------------------------------------------------------------------------- */
 export function getBackgroundImage(boardId) {
   return axios
