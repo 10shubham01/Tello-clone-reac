@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "../style/cards.css";
+import "../../style/cards.css";
 import { Trash } from "react-feather";
-import CreateInput from "./createInput";
+import CreateInput from "../createInput";
 import { Link } from "react-router-dom";
-import * as Trello from "../API/api";
+import * as Trello from "../../API/api";
 class Card extends Component {
   constructor(props) {
     super(props);

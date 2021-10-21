@@ -4,9 +4,9 @@ import { Modal } from "react-responsive-modal";
 import { Form, Button } from "react-bootstrap";
 import "react-responsive-modal/styles.css";
 
-import * as Trello from "../API/api";
+import * as Trello from "../../API/api";
 import BoardCard from "./boardCard";
-import "../style/boards.css";
+import "../../style/boards.css";
 import { Link } from "react-router-dom";
 
 class Boards extends Component {

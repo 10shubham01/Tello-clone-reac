@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import "../style/lists.css";
-import * as Trello from "../API/api";
-import Cards from "./cards";
+import "../../style/lists.css";
+import * as Trello from "../../API/api";
+import Cards from "../Cards/cards";
 import { Archive } from "react-feather";
-import CreateInput from "./createInput";
+import CreateInput from "../createInput";
 
 class Lists extends Component {
   constructor(props) {

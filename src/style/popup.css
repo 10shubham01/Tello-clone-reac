@@ -91,8 +91,8 @@ text-align: left;
 
 .buttons {
     display: flex;
-    justify-content: space-between;
-    width: 15%;
+    justify-content: start;
+    width: 100%;
 }
 
 .rightmenu {

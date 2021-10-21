@@ -6,10 +6,15 @@ textarea {
 }
 
 .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5%;
+    width: 300px;
+}
+
+.buttons {
     display: flex;
-    /* width: 100%; */
-justify-content: space-between;
-    /* background-color: red; */
+    justify-content: start;
 }
 
 textarea:hover {

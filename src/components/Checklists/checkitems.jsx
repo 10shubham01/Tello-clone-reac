@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Checkbox, FormControlLabel } from "@mui/material";
-import * as Trello from "../API/api";
-import CreateInput from "./createInput";
-import "../style/checkitems.css";
+import * as Trello from "../../API/api";
+import CreateInput from "../createInput";
+import "../../style/checkitems.css";
 import { Trash } from "react-feather";
 
 class CheckItems extends Component {

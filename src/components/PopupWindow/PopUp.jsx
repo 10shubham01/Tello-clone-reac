@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import * as Trello from "../API/api";
-
+import * as Trello from "../../API/api";
 import { AlignLeft, Layout, X, CheckSquare } from "react-feather";
 import Popover from "@mui/material/Popover";
+import CheckList from "../Checklists/checklist";
+import "../../style/popup.css";
+import CreateInput from "../createInput";
 
-import CheckList from "./checklist";
-
-import "../style/popup.css";
-import CreateInput from "./createInput";
 class PopUp extends Component {
   constructor(props) {
     super(props);

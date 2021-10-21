@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../style/sideNavBar.css";
+import "../../style/sideNavBar.css";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import MicrowaveOutlinedIcon from "@mui/icons-material/MicrowaveOutlined";
 import { Link } from "react-router-dom";

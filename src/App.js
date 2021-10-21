@@ -1,13 +1,12 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import Boards from "./components/boards";
-import Lists from "./components/lists";
-import PopUp from "./components/PopUp";
-import NavBar from "./components/navbar";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import SideNavBar from "./components/sideNavBar";
+import Boards from "./components/Boards/boards";
+import Lists from "./components/Lists/lists";
+import PopUp from "./components/PopupWindow/PopUp";
+import NavBar from "./components/Navbar/navbar";
+import SideNavBar from "./components/Navbar/sideNavBar";
 import Home from "./components/home";
-import { Check } from "@mui/icons-material";
 
 class App extends Component {
   constructor(props) {
