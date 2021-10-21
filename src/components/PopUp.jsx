@@ -47,7 +47,7 @@ class PopUp extends Component {
   deleteChecklist = async (checklistID) => {
     await Trello.deleteChecklist(checklistID);
     this.setState({
-      cards: this.state.checklists.filter((f) => f.id !== checklistID),
+      checklists: this.state.checklists.filter((f) => f.id !== checklistID),
     });
   };
 

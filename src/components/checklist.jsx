@@ -21,7 +21,11 @@ class CheckList extends Component {
                 onClick={() => this.props.delete(list.id)}
               />
             </div>
-            <CheckItems checklistId={list.id} cardId={list.idCard} />
+            <CheckItems
+              checklistId={list.id}
+              cardId={list.idCard}
+              key={list.id}
+            />
           </div>
         ))}
       </div>
