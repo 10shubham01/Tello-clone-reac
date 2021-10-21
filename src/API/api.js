@@ -1,7 +1,7 @@
 import axios from "axios";
-const API_KEY = "4298ca93f060af6da934044bfa1ab2b2";
-const API_TOKEN =
-  "530264e811c33c4aa41e9471743647bf78b1d4b3e2239ab9fa1c0c11fa7c26c1";
+const API_KEY = process.env.REACT_APP_API_KEY;
+const API_TOKEN = process.env.REACT_APP_API_TOKEN;
+console.log(API_TOKEN);
 export function getBoards() {
   return axios
     .get(
